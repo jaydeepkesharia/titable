@@ -61,7 +61,26 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
         </style>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -80,21 +99,49 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <form id="table_form">
+                    <label for="workingd">No of Working days:</label><br>
+                    <input type="text" id="workingd" name="workingd" value="5"><br>
+                    <label for="workingh"> No of working hours per day:</label><br>
+                    <input type="text" id="workingh" name="workingh" value="8"><br><br>
+                    <input type="submit" value="Submit">
+                </form>
             </div>
         </div>
+        <div>
+            <table border="1">
+                <thead>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                </thead>
+                <tbody class="grid-canvas"></tbody>
+            </table>
+        </div>
+        <script type="text/javascript">
+            $(document).on("submit", "#table_form", function(e) {
+                e.preventDefault();
+                numOfRow = $('#workingh').val();
+                numOfCol = $('#workingd').val();
+
+
+                subjects = ['Gujarati','English','Science','Maths'];
+
+                var body = $('.grid-canvas');
+                for (var i = 1; i <= numOfRow; i++) {
+                let row = $('<tr></tr>');
+                    for (col = 1; col <= numOfCol; col++) {
+                        let column = $('<td></td>');
+                        row.append(column);
+                        column.html(subjects[Math.floor(Math.random()*subjects.length)]);
+                    }
+                body.append(row);
+
+                }
+            });
+
+        </script>
     </body>
 </html>
